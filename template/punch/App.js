@@ -1,9 +1,24 @@
-import React from 'react';
+import React ,{useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {StyleSheet,View,Text,TouchableOpacity, ScrollView, ListView, FlatList} from 'react-native';
+import Axios from 'axios';
 
 
 const PunchUi = () => {
+    const [posts,setPosts] = useState([]);
+    //http://blog.deesuntech.com/wp-json/wp/v2/posts
+    useEffect(() => {
+             //this function will run when the page load
+            //getUserRepos(match.params.login)
+      //eslint-disable-next-line
+    },[]);
+
+    //  getPosts = async () =>{
+    //      //update loading
+    //      const res = await Axios.get(`http://blog.deesuntech.com/wp-json/wp/v2/posts`);
+    //      //update state
+    //  }
+
     return(
         <View style={styles.container}>
             <View style={styles.navBarContainer}>
@@ -26,10 +41,13 @@ const PunchUi = () => {
             </View>
             {/* Body Section */}
             <View>
-               <FlatList>
-              
-                
-               </FlatList>
+               <FlatList
+               keyExtractor= {(item) => item.id}
+                data={posts}
+                renderItem={(item) =>(
+                    <Text> Text </Text>
+                )}
+               />
             </View>
 
         </View>
