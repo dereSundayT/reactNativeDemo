@@ -5,24 +5,14 @@ import {
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
-  ListView,
   FlatList,
 } from 'react-native';
-import Axios from 'axios';
+import axios from 'axios';
 
 const PunchUi = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  
-  getPosts = async () => {
-    setLoading(true);
-    const res = await Axios.get(
-      `http://blog.deesuntech.com/wp-json/wp/v2/posts`
-    );
-    setPosts(res.data);
-    setIsLoading(false);
-  };
+
   //http://blog.deesuntech.com/wp-json/wp/v2/posts
   useEffect(() => {
     //this function will run when the page load
@@ -30,40 +20,38 @@ const PunchUi = () => {
     getPosts();
     //eslint-disable-next-line
   }, []);
-
+//
+ const getPosts = async () => {
+    setLoading(true);
+    //http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=2
+    const res = await axios.get('http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=20');
+    setPosts(res.data);
+    setLoading(false);
+    //console.log(res.data);
+  }
+ 
   return (
-      
     <View style={styles.container}>
-      <View style={styles.navBarContainer}>
-        <View style={styles.topBar}>
-          <TouchableOpacity>
-            <Icon name='menu' style={styles.topNavIcon} />
-          </TouchableOpacity>
-          <Text style={styles.topBarTitle}>Punch News</Text>
-          <TouchableOpacity>
-            <Icon name='search' style={styles.topNavIcon} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.tabItemContainer}>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-        </View>
-      </View>
-      {/* Body Section */}
-      <View>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          data={posts}
-          renderItem={(post) => <Text> {post.title.rendered} </Text>}
-        />
-        <View>
-            {posts.map((post) => post.id)}
+        <View style={styles.navBarContainer}>
+            <View style={styles.topBar}>
+                <TouchableOpacity>
+                    <Icon name='menu' style={styles.topNavIcon} />
+                </TouchableOpacity>
+                <Text style={styles.topBarTitle}>Punch News</Text>
+                <TouchableOpacity>
+                    <Icon name='search' style={styles.topNavIcon} />
+                </TouchableOpacity>
             </View>
+            <View style={styles.tabItemContainer}>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+            </View>
+        </View>
+        {/* Body Section */}
+        { loading? <Text>Loading.....</Text>:posts.map( post=> <Text key={post.id}>{post.title.rendered}</Text>)}
       </View>
-    </View>
   );
 };
 const styles = StyleSheet.create({
