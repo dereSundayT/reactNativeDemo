@@ -10,14 +10,17 @@ const PunchUi = () => {
     useEffect(() => {
              //this function will run when the page load
             //getUserRepos(match.params.login)
+            getPosts();
       //eslint-disable-next-line
     },[]);
 
-    //  getPosts = async () =>{
-    //      //update loading
-    //      const res = await Axios.get(`http://blog.deesuntech.com/wp-json/wp/v2/posts`);
-    //      //update state
-    //  }
+     getPosts = async () =>{
+         //update loading
+         const res = await Axios.get(`http://blog.deesuntech.com/wp-json/wp/v2/posts`);
+         //update state
+         setPosts({posts:res});
+         console.log(posts);
+     }
 
     return(
         <View style={styles.container}>
@@ -44,7 +47,7 @@ const PunchUi = () => {
                <FlatList
                keyExtractor= {(item) => item.id}
                 data={posts}
-                renderItem={(item) =>(
+                renderItem={(post) =>(
                     <Text> Text </Text>
                 )}
                />
