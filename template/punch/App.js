@@ -13,15 +13,15 @@ import Axios from 'axios';
 
 const PunchUi = () => {
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const getPosts = async () => {
-    //update loading
+  const [loading, setLoading] = useState(false);
+  
+  getPosts = async () => {
+    setLoading(true);
     const res = await Axios.get(
       `http://blog.deesuntech.com/wp-json/wp/v2/posts`
     );
-    //update state
-    setPosts({ posts: res.data });
-    setIsLoading({ isLoading: false });
+    setPosts(res.data);
+    setIsLoading(false);
   };
   //http://blog.deesuntech.com/wp-json/wp/v2/posts
   useEffect(() => {
