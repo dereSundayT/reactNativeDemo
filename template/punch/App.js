@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import News from './NewsComponent';
+
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  FlatList,
 } from 'react-native';
 import axios from 'axios';
 
@@ -13,7 +14,7 @@ const PunchUi = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //http://blog.deesuntech.com/wp-json/wp/v2/posts
+  //http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=3
   useEffect(() => {
     //this function will run when the page load
     //getUserRepos(match.params.login)
@@ -23,11 +24,9 @@ const PunchUi = () => {
 //
  const getPosts = async () => {
     setLoading(true);
-    //http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=2
-    const res = await axios.get('http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=20');
+    const res = await axios.get('http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=7');
     setPosts(res.data);
     setLoading(false);
-    //console.log(res.data);
   }
  
   return (
@@ -50,7 +49,7 @@ const PunchUi = () => {
             </View>
         </View>
         {/* Body Section */}
-        { loading? <Text>Loading.....</Text>:posts.map( post=> <Text key={post.id}>{post.title.rendered}</Text>)}
+       <News posts={posts} loading={loading} />
       </View>
   );
 };
