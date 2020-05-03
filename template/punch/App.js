@@ -15,13 +15,13 @@ const PunchUi = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   
-  getPosts = async () => {
+  const getPosts = async () => {
     setLoading(true);
     const res = await Axios.get(
       `http://blog.deesuntech.com/wp-json/wp/v2/posts`
     );
-    setPosts(res.data);
-    setIsLoading(false);
+    setPosts(res);
+    setLoading(false);
   };
   //http://blog.deesuntech.com/wp-json/wp/v2/posts
   useEffect(() => {
@@ -32,7 +32,6 @@ const PunchUi = () => {
   }, []);
 
   return (
-      
     <View style={styles.container}>
       <View style={styles.navBarContainer}>
         <View style={styles.topBar}>
@@ -61,7 +60,7 @@ const PunchUi = () => {
         />
         <View>
             {posts.map((post) => post.id)}
-            </View>
+        </View>
       </View>
     </View>
   );
