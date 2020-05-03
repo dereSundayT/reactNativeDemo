@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import News from './NewsComponent';
+
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  ScrollView,
-  ListView,
-  FlatList,
 } from 'react-native';
-import Axios from 'axios';
+import axios from 'axios';
 
 const PunchUi = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   
   const getPosts = async () => {
     setLoading(true);
@@ -24,45 +24,46 @@ const PunchUi = () => {
     setLoading(false);
   };
   //http://blog.deesuntech.com/wp-json/wp/v2/posts
+=======
+
+  //http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=3
+>>>>>>> 17978c5662df3f51e360985c9873bd923f99a615
   useEffect(() => {
     //this function will run when the page load
     //getUserRepos(match.params.login)
     getPosts();
     //eslint-disable-next-line
   }, []);
-
+//
+ const getPosts = async () => {
+    setLoading(true);
+    const res = await axios.get('http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=7');
+    setPosts(res.data);
+    setLoading(false);
+  }
+ 
   return (
     <View style={styles.container}>
-      <View style={styles.navBarContainer}>
-        <View style={styles.topBar}>
-          <TouchableOpacity>
-            <Icon name='menu' style={styles.topNavIcon} />
-          </TouchableOpacity>
-          <Text style={styles.topBarTitle}>Punch News</Text>
-          <TouchableOpacity>
-            <Icon name='search' style={styles.topNavIcon} />
-          </TouchableOpacity>
+        <View style={styles.navBarContainer}>
+            <View style={styles.topBar}>
+                <TouchableOpacity>
+                    <Icon name='menu' style={styles.topNavIcon} />
+                </TouchableOpacity>
+                <Text style={styles.topBarTitle}>Punch News</Text>
+                <TouchableOpacity>
+                    <Icon name='search' style={styles.topNavIcon} />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.tabItemContainer}>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+                <Text>LATEST</Text>
+            </View>
         </View>
-
-        <View style={styles.tabItemContainer}>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-          <Text>LATEST</Text>
-        </View>
+        {/* Body Section */}
+       <News posts={posts} loading={loading} />
       </View>
-      {/* Body Section */}
-      <View>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          data={posts}
-          renderItem={(post) => <Text> {post.title.rendered} </Text>}
-        />
-        <View>
-            {posts.map((post) => post.id)}
-        </View>
-      </View>
-    </View>
   );
 };
 const styles = StyleSheet.create({
