@@ -13,21 +13,8 @@ import axios from 'axios';
 const PunchUi = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
-  
-  const getPosts = async () => {
-    setLoading(true);
-    const res = await Axios.get(
-      `http://blog.deesuntech.com/wp-json/wp/v2/posts`
-    );
-    setPosts(res);
-    setLoading(false);
-  };
-  //http://blog.deesuntech.com/wp-json/wp/v2/posts
-=======
 
   //http://blog.deesuntech.com/wp-json/wp/v2/posts?per_page=3
->>>>>>> 17978c5662df3f51e360985c9873bd923f99a615
   useEffect(() => {
     //this function will run when the page load
     //getUserRepos(match.params.login)

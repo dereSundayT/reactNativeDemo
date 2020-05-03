@@ -27,7 +27,7 @@ const NewsItem = ({post}) => {
                 <View style={styles.newsItemContainer}>
                     <Image 
                     style={styles.postImage}
-                    source={{uri:"https://i2.wp.com/www.blog.deesuntech.com/wp-content/uploads/2019/11/untitled-1-28575656114554231252.jpg?fit=1200%2C1200&ssl=1"}}
+                    source={{uri:`${image}`}}
                     />
                     <View style={styles.postDetailsContainer}>
                         <Text numberOfLines={2} style={styles.postTitle}> {post.title.rendered} </Text>
